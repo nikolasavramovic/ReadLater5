@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Services
 {
+    //in real world applications best practice is to use repository pattern with unit of work pattern to ensure transactions consistency
     public class BookMarkService : IBookMarkService
     {
         private ReadLaterDataContext _ReadLaterDataContext;

@@ -16,6 +16,7 @@ namespace Services
 {
     public class AuthService : IAuthService
     {
+        //in real world applications best practice is to use repository pattern with unit of work pattern to ensure transactions consistency
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         public AuthService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
