@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ReadLater5.Models;
 using ReadLater5.Models.Requests;
 using ReadLater5.Models.Responses;
 using Services;
@@ -16,19 +17,24 @@ namespace ReadLeter5.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        #region privates
         private IAuthService _authService;
+        #endregion
+        #region ctors
         public AuthController(IAuthService authService)
         {
             _authService = authService;
         }
-        // GET: api/<AuthCon[HttpPost]
+        #endregion
+
+        #region writers
         [HttpPost]
         [Route("Login")]
         [MapToApiVersion("1.0")]
         [AllowAnonymous]
-        public async Task<ActionResult<LoginResponse>> Post([FromBody] LoginRequest model)
+        public async Task<ActionResult<LoginResponse>> Post([FromBody] LoginReq request)
         {
-            LoginResponse response = await _authService.LoginApi(model);
+            LoginResponse response = await _authService.LoginApi(request.Map());
             if (response != null)
                 return Ok(response);
             else
@@ -45,7 +51,7 @@ namespace ReadLeter5.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await  _authService.RegisterApi(model);
+                var result = await _authService.RegisterApi(model);
                 if (result.Succeeded)
                     return Ok();
                 return new StatusCodeResult(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest);
@@ -54,7 +60,7 @@ namespace ReadLeter5.API.Controllers
                 return new StatusCodeResult(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest);
 
         }
+        #endregion
 
-        
     }
 }

@@ -64,13 +64,13 @@ namespace ReadLeter5.API.Controllers
         #region writers
         [HttpPost]
         [MapToApiVersion("1.0")]
-        public ActionResult Post([FromBody] Bookmark bookmark)
+        public ActionResult Post([FromBody] BookmarkRequest request)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _bookMarkService.CreateBookmark(bookmark);
+                    _bookMarkService.CreateBookmark(request.Map());
                     return Ok();
                 }
                 catch

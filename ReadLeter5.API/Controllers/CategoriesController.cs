@@ -1,6 +1,8 @@
 ﻿using Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ReadLater5.Models;
+using ReadLater5.Models.Requests;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -61,13 +63,13 @@ namespace ReadLeter5.API.Controllers
         // POST api/<CategoriesController>
         [HttpPost]
         [MapToApiVersion("1.0")]
-        public ActionResult Post([FromBody] Category category)
+        public ActionResult Post([FromBody] CategoryRequest request)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _categoryService.CreateCategory(category);
+                    _categoryService.CreateCategory(request.Map());
                     return Ok();
                 }
                 catch
@@ -82,13 +84,13 @@ namespace ReadLeter5.API.Controllers
         [HttpPut]
         [Authorize]
         [MapToApiVersion("1.0")]
-        public ActionResult Put(Category category)
+        public ActionResult Put(CategoryRequest request)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _categoryService.UpdateCategory(category);
+                    _categoryService.UpdateCategory(request.Map());
                     return Ok(); ;
                 }
                 return new StatusCodeResult(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest);
