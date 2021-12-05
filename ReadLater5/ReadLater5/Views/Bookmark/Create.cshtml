@@ -1,0 +1,76 @@
+﻿@model Entity.Bookmark
+
+@{
+    ViewData["Title"] = "Create";
+    var categoryList = (SelectList)ViewBag.CategoryId;
+}
+
+<h1>Create</h1>
+
+<h4>Bookmark</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="URL" class="control-label"></label>
+                <input asp-for="URL" class="form-control" />
+                <span asp-validation-for="URL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShortDescription" class="control-label"></label>
+                <input asp-for="ShortDescription" class="form-control" />
+                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-control" asp-items="@categoryList"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateDate" class="control-label"></label>
+                <input asp-for="CreateDate" class="form-control" />
+                <span asp-validation-for="CreateDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<button class="btn btn-primary" style="color:white;" data-toggle="modal" data-target="#category-modal">Add Category</button>
+<button class="btn btn-info" style="color:white;" asp-action="Index">Back to List</button>
+
+
+<partial name="_CreateCategoryPartialView"  />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+
+    $("#categoryForm").submit(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: '@Url.Action("CreateFromModal", "Categories")',
+            type: "POST",
+            data: $(this).serialize(),
+            datatype: JSON,
+            success: function (result) {
+                var categories = "";
+                var cateList = $("#CategoryId");
+                categories = categories+ '<option value="' + result.id + '">' + result.name + '</option>'
+                cateList.append(categories);
+                $('#category-modal').modal("hide");
+            },
+            error: function (data) {
+                return "Error";
+            }
+        });
+    });
+</script>
+
+}
