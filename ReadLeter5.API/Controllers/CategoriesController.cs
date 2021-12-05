@@ -63,6 +63,7 @@ namespace ReadLeter5.API.Controllers
         // POST api/<CategoriesController>
         [HttpPost]
         [MapToApiVersion("1.0")]
+        [Authorize]
         public ActionResult Post([FromBody] CategoryRequest request)
         {
             if (ModelState.IsValid)

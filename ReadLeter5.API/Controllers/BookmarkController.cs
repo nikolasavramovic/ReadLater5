@@ -63,6 +63,7 @@ namespace ReadLeter5.API.Controllers
  
         #region writers
         [HttpPost]
+        [Authorize]
         [MapToApiVersion("1.0")]
         public ActionResult Post([FromBody] BookmarkRequest request)
         {

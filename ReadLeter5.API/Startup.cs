@@ -35,13 +35,11 @@ namespace ReadLeter5.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //In real world applications we can make this method much cleaner by using extension methods and then calling them in here
+
             services.AddDbContext<ReadLaterDataContext>(options =>
                options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
-           // services.AddDatabaseDeveloperPageExceptionFilter();
-
-            //services.AddDefaultIdentity<ReadLater5.Models.Models.ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<ReadLaterDataContext>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -78,9 +76,6 @@ namespace ReadLeter5.API
                 options.GroupNameFormat = "'v'VVV";
                 options.SubstituteApiVersionInUrl = true;
             });
-
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<ReadLaterDataContext>();
 
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IBookMarkService, BookMarkService>();

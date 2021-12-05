@@ -38,6 +38,17 @@ namespace ReadLater5.Controllers
         {
             ViewData["ReturnUrl"] = returnUrl;
             var response = await _authService.LoginApp(model);
+
+            //*****if we are using Role-base authorization then below commentted code
+            //explains how to attach user to Role
+            //then we can decorate Controllers or actions with Authorized roles that have access
+            //Also we can use roles to restrict some Views actions, partials ...
+            //ApplicationUser user1 = await _userManager.FindByEmailAsync(model.Email);
+
+            //var role = await RoleManager.FindByIdAsync(model.RoleId);
+            //var roleName = role.Name;
+            //await _userManager.AddToRoleAsync(user1, roleName);
+
             if (response != null)
                 return RedirectToAction("Index", "Bookmark");
             else

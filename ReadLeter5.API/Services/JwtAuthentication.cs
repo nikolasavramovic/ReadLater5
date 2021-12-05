@@ -14,9 +14,9 @@ namespace ReadLeter5.API.Services
     {
         public static IServiceCollection AddTokenAuthentication(this IServiceCollection services, IConfiguration config)
         {
-            var secret = "secret";// config.GetSection("JwtConfig").GetSection("secret").Value;
+            //var secret =  config.GetSection("JwtConfig").GetSection("secret").Value;
 
-            var key = Encoding.ASCII.GetBytes("PDv7DrqznYL6nv7DrqzjnQYO9JxIsWdcjnQYL6nu0p");
+            var key = Encoding.ASCII.GetBytes("PDv7DrqznYL6nv7DrqzjnQYO9JxIsWdcjnQYL6nu0p"); // this i secret i needs to be stored in secrets
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
